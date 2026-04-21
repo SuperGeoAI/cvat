@@ -94,7 +94,9 @@
 .cvat-issue-control,
 .cvat-tools-control,
 .cvat-extra-controls-control,
-.cvat-opencv-control {
+.cvat-opencv-control,
+.cvat-audio-create-region-control,
+.cvat-audio-edit-region-control {
     border-radius: $border-radius-base;
     transform: scale(0.65);
     padding: 2px;

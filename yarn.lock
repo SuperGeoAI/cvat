@@ -3526,6 +3526,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wavesurfer/react@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "@wavesurfer/react@npm:1.0.12"
+  peerDependencies:
+    react: ^18.2.0 || ^19.0.0
+    wavesurfer.js: ">=7.7.14"
+  checksum: 10c0/efb92f40c3c31d4e6767bb807c472d1eab328419e85dabdcb8a459ab160070c88430b55d66a4639363bdf5e3187ec6799b2358b8b01e008954f41571b1b06ac9
+  languageName: node
+  linkType: hard
+
 "@webassemblyjs/ast@npm:1.12.1, @webassemblyjs/ast@npm:^1.12.1":
   version: 1.12.1
   resolution: "@webassemblyjs/ast@npm:1.12.1"
@@ -5747,6 +5757,7 @@ __metadata:
     "@types/redux-logger": "npm:^3.0.9"
     "@types/resize-observer-browser": "npm:^0.1.6"
     "@uiw/react-md-editor": "npm:^3.22.0"
+    "@wavesurfer/react": "npm:^1.0.12"
     antd: "npm:5.17.1"
     chart.js: "npm:^4.4.8"
     chartjs-plugin-datalabels: "npm:^2.2.0"
@@ -5777,6 +5788,7 @@ __metadata:
     redux-devtools-extension: "npm:^2.13.9"
     redux-logger: "npm:^4.0.0"
     redux-thunk: "npm:^2.3.0"
+    wavesurfer.js: "npm:^7.12.5"
   languageName: unknown
   linkType: soft
 
@@ -18150,6 +18162,13 @@ __metadata:
     glob-to-regexp: "npm:^0.4.1"
     graceful-fs: "npm:^4.1.2"
   checksum: 10c0/c694de0a61004e587a8a0fdc9cfec20ee692c52032d9ab2c2e99969a37fdab9e6e1bd3164ed506f9a13f7c83e65563d563e0d6b87358470cdb7309b83db78683
+  languageName: node
+  linkType: hard
+
+"wavesurfer.js@npm:^7.12.5":
+  version: 7.12.5
+  resolution: "wavesurfer.js@npm:7.12.5"
+  checksum: 10c0/5b15ba5b373e6900777ef734f564d443a7443bad4ee8e0b8c0df34f0cbb09cbbc85179bd00a98f823c06765c271cdaa1f318b933a32778e239af8c48203e164f
   languageName: node
   linkType: hard
 
