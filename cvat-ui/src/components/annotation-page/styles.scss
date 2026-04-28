@@ -205,7 +205,8 @@
     max-height: $grid-unit-size * 3;
     line-height: $grid-unit-size * 3;
 
-    > span {
+    > span,
+    > a {
         display: inline-block;
         width: 100%;
         white-space: nowrap;
