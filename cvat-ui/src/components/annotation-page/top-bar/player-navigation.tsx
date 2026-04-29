@@ -6,6 +6,7 @@
 import React, {
     useState, useEffect, useCallback, CSSProperties,
 } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Row, Col } from 'antd/lib/grid';
 import Icon, {
@@ -199,6 +200,23 @@ function PlayerNavigation(props: Props): JSX.Element {
         </CVATTooltip>
     );
 
+    const meta = useSelector((state: CombinedState) => state.annotation.job.meta);
+    const frameSize = meta?.frames[frameNumber - startFrame];
+
+    const buildSGALink = (filename: string): string | null => {
+        // Only build link for SGA-format filenames, e.g. CZ02-NW-22-44-17-W2_5024x97
+        if (!/^[A-Z0-9]+-(.+)_\d+x\d+/.test(filename)) return null;
+
+        const host = (process.env.SGA_WEBX_HOST || 'https://webx.sga.ai').replace(/\/+$/, '');
+        const project = process.env.SGA_WEBX_PROJECT || 'sk2025';
+        const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
+        const hasSize = frameSize && frameSize.width != null && frameSize.height != null;
+        const sizeParam = hasSize ? `&size=${encodeURIComponent(`${frameSize.width}x${frameSize.height}`)}` : '';
+        return `${host}/wildlife/sga/reviewSegmentedMap?project=${encodeURIComponent(project)}&name=${encodeURIComponent(nameWithoutExt)}${sizeParam}`;
+    };
+
+    const sgaLink = buildSGALink(frameFilename);
+
     return (
         <>
             { workspace !== Workspace.SINGLE_SHAPE && (
@@ -240,7 +258,13 @@ function PlayerNavigation(props: Props): JSX.Element {
                 <Row justify='center'>
                     <Col className='cvat-player-filename-wrapper'>
                         <CVATTooltip title={`${frameFilename}`}>
-                            <Text type='secondary'>{frameFilename}</Text>
+                            {sgaLink ? (
+                                <a href={sgaLink} target='_blank' rel='noopener noreferrer'>
+                                    {frameFilename}
+                                </a>
+                            ) : (
+                                <Text type='secondary'>{frameFilename}</Text>
+                            )}
                         </CVATTooltip>
                     </Col>
                     <Col className='cvat-player-frame-actions' offset={1}>
