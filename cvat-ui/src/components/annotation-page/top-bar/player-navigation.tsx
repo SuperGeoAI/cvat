@@ -204,14 +204,24 @@ function PlayerNavigation(props: Props): JSX.Element {
     const frameSize = meta?.frames[frameNumber - startFrame];
 
     const buildSGALink = (filename: string): string | null => {
-        // Only build link for SGA-format filenames, e.g. CZ02-NW-22-44-17-W2_5024x97
-        if (!/^[A-Z0-9]+-(.+)_\d+x\d+/.test(filename)) return null;
-
         const host = (process.env.SGA_WEBX_HOST || 'https://webx.sga.ai').replace(/\/+$/, '');
-        const project = process.env.SGA_WEBX_PROJECT || 'sk2025';
         const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
         const hasSize = frameSize && frameSize.width != null && frameSize.height != null;
         const sizeParam = hasSize ? `&size=${encodeURIComponent(`${frameSize.width}x${frameSize.height}`)}` : '';
+        const isSGAV2Filename = /^[^_]+_[A-Z0-9]+_(?:NE|NW|SE|SW)-\d+[A-Z]?\-\d+[A-Z]?\-\d+[A-Z]?\-[WESN]\d?_\d+x\d+$/.test(nameWithoutExt);
+
+        // New format: {projectName}_{sgaId}_{LLD}_{left}x{top}.png (projectName is lowercase)
+        // e.g. sk2025_J49_NW-22-20-19-W2_1166x3229.png
+        // projectName is embedded in the filename itself; no separate project param needed.
+        if (isSGAV2Filename) {
+            return `${host}/wildlife/sga/reviewSegmentedMap?name=${encodeURIComponent(nameWithoutExt)}${sizeParam}`;
+        }
+
+        // Legacy format: {sgaId}-{LLD}_{coord}.png (sgaId is uppercase)
+        // e.g. CZ02-NW-22-44-17-W2_5024x97.png
+        if (!/^[A-Z0-9]+-(.+)_\d+x\d+/.test(filename)) return null;
+
+        const project = process.env.SGA_WEBX_PROJECT || 'sk2025';
         return `${host}/wildlife/sga/reviewSegmentedMap?project=${encodeURIComponent(project)}&name=${encodeURIComponent(nameWithoutExt)}${sizeParam}`;
     };
 
