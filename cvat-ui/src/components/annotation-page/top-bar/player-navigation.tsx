@@ -208,7 +208,7 @@ function PlayerNavigation(props: Props): JSX.Element {
         const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
         const hasSize = frameSize && frameSize.width != null && frameSize.height != null;
         const sizeParam = hasSize ? `&size=${encodeURIComponent(`${frameSize.width}x${frameSize.height}`)}` : '';
-        const isSGAV2Filename = /^[^_]+_[A-Z0-9]+_(?:NE|NW|SE|SW)-\d+[A-Z]?\-\d+[A-Z]?\-\d+[A-Z]?\-[WESN]\d?_\d+x\d+$/.test(nameWithoutExt);
+        const isSGAV2Filename = /^[^_]+_[^_]+_(?:NE|NW|SE|SW)-\d+[A-Z]?\-\d+[A-Z]?\-\d+[A-Z]?\-[WESN]\d?_\d+x\d+$/.test(nameWithoutExt);
 
         // New format: {projectName}_{sgaId}_{LLD}_{left}x{top}.png (projectName is lowercase)
         // e.g. sk2025_J49_NW-22-20-19-W2_1166x3229.png
